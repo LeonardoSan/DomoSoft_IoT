@@ -1,0 +1,7 @@
+{
+  "name": "domosoft",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
