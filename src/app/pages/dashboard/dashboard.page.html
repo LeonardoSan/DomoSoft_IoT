@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div id="div-spinner" *ngIf="showSpinner">
+  <ion-spinner id="spinner" name="crescent"></ion-spinner>
+</div>
+
+  <h2>Gráfica</h2>
+  <ngx-charts-line-chart
+  [view]="view"
+  [scheme]="colorScheme"
+  [legend]="legend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxis]="xAxis"
+  [yAxis]="yAxis"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [timeline]="timeline"
+  [results]="dataApi"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)"
+  >
+</ngx-charts-line-chart>
+<br>
+<label for="stateLed">Cambiar estado LED</label>
+<ion-toggle color="primary" name="stateLed" [(ngModel)]="stateLed" (click)="changeStateLed()"></ion-toggle>
+
+<br>
+<ion-item>
+  <ion-label>Fecha Inicio</ion-label>
+  <ion-input type="date" [(ngModel)]="fechaInicio"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label>Fecha Final</ion-label>
+  <ion-input type="date" [(ngModel)]="fechaFinal"></ion-input>
+</ion-item>
+
+<br>
+<button (click)="validateDate()">Validar Fecha</button>
+
+
+</ion-content>
