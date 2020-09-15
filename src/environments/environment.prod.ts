@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'http://leonardo.com.co/api_esp/'
+  url: 'http://domosoft.com.co/api_esp/'
 };

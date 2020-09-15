@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { multi } from './data';
 import { SensorsService } from '../../services/sensors.service';
-import { error } from 'protractor';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +13,9 @@ export class DashboardPage implements OnInit {
   showSpinner: boolean = false;
   fechaInicio: string = '2020-07-01';
   fechaFinal: string = '2020-07-31';
+  // idDispositivo: string = 'postman';
+  idDispositivo: string = 'ESP8266_002_5C:CF:7F:43:72:52';
+  idLed: number = 1;
 
   multi: any[];
   view: any[] = [700, 300];
@@ -46,9 +48,7 @@ export class DashboardPage implements OnInit {
   };
 
   constructor(private sensorService: SensorsService) {
-    //  console.log('dataApi constructor: ', this.dataApi);
-    // let data = this.dataApi;
-    // Object.assign(this, { multi });
+    // this.dataApi = multi;
   }
 
   onSelect(data): void {
@@ -70,7 +70,7 @@ export class DashboardPage implements OnInit {
     console.log('obtener temperatura');
 
     this.showSpinner = true;
-    this.sensorService.GetTemperature(this.fechaInicio, this.fechaFinal).subscribe(
+    this.sensorService.GetTemperature(this.fechaInicio, this.fechaFinal, this.idDispositivo).subscribe(
       result => {
 
         console.log('temperatura', result);
@@ -83,7 +83,7 @@ export class DashboardPage implements OnInit {
         console.log('this.dataTemperature', this.dataTemperature);
         this.dataTemperature['series'] = result;
 
-        this.sensorService.GetHumidity(this.fechaInicio, this.fechaFinal).subscribe(
+        this.sensorService.GetHumidity(this.fechaInicio, this.fechaFinal, this.idDispositivo).subscribe(
           result => {
             this.showSpinner = false;
             console.log('humedad', result);
@@ -117,7 +117,7 @@ export class DashboardPage implements OnInit {
   }
 
   GetStateLed(){
-    let id= 1;
+    let id= this.idLed;
     let valor;
     this.showSpinner = true;
     this.sensorService.GetLed(id).subscribe(
@@ -152,7 +152,7 @@ export class DashboardPage implements OnInit {
 
   readData(){
     this.showSpinner = true;
-    this.sensorService.GetTemperature(this.fechaInicio, this.fechaFinal).subscribe(
+    this.sensorService.GetTemperature(this.fechaInicio, this.fechaFinal, this.idDispositivo).subscribe(
       result => {
 
         console.log('temperatura', result);
@@ -165,7 +165,7 @@ export class DashboardPage implements OnInit {
         console.log('this.dataTemperature', this.dataTemperature);
         this.dataTemperature['series'] = result;
 
-        this.sensorService.GetHumidity(this.fechaInicio, this.fechaFinal).subscribe(
+        this.sensorService.GetHumidity(this.fechaInicio, this.fechaFinal, this.idDispositivo).subscribe(
           result => {
             this.showSpinner = false;
             console.log('humedad', result);
@@ -200,7 +200,7 @@ export class DashboardPage implements OnInit {
     console.log('cambiar estado');
     
 
-    let id= 2;
+    let id= this.idLed;
     let valor;
     this.showSpinner = true;
     this.sensorService.GetLed(id).subscribe(
@@ -220,7 +220,7 @@ export class DashboardPage implements OnInit {
         let data = {
           'Valor': valor,
           'Lugar': 'prueba postman',
-          'Id_Dispositivo': 'ESP8266_001_84:F3:EB:CA:A6:0F',
+          'Id_Dispositivo': this.idDispositivo,
           'Red': 'RedBull',
           'Ip': '192.168.0.1',
           'Key': 'tPmAT5Ab3j7F8456'

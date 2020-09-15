@@ -18,14 +18,14 @@ export class SensorsService {
     };
   }
 
-  GetTemperature(fechaInicio: string, fechaFinal: string){
+  GetTemperature(fechaInicio: string, fechaFinal: string, idDispositivo: string){
     this.setHeaders();
-    return this.http.get(this.urlApi + 'temperatura/?fechaInicio='+fechaInicio+'&fechaFinal='+fechaFinal, this.httpOptions).pipe() as any;
+    return this.http.get(this.urlApi + 'temperatura/?fechaInicio='+fechaInicio+'&fechaFinal='+fechaFinal+'&idDispositivo='+idDispositivo, this.httpOptions).pipe() as any;
   }
 
-  GetHumidity(fechaInicio: string, fechaFinal: string){
+  GetHumidity(fechaInicio: string, fechaFinal: string, idDispositivo: string){
     this.setHeaders();
-    return this.http.get(this.urlApi + 'humedad/?fechaInicio='+fechaInicio+'&fechaFinal='+fechaFinal, this.httpOptions).pipe() as any;
+    return this.http.get(this.urlApi + 'humedad/?fechaInicio='+fechaInicio+'&fechaFinal='+fechaFinal+'&idDispositivo='+idDispositivo, this.httpOptions).pipe() as any;
   }
 
   GetLed(id: number){
